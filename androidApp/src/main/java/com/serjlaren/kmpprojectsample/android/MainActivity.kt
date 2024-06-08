@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.serjlaren.KmpProjectSample.core.network.CommentDto
 import com.serjlaren.KmpProjectSample.core.network.CommentsApi
+import com.serjlaren.KmpProjectSample.core.network.common.ApiResponse
 import com.serjlaren.core.storage.SettingsStorage
 import kotlinx.coroutines.launch
 
@@ -47,7 +48,16 @@ class MainActivity : ComponentActivity() {
 
                     LaunchedEffect(key1 = Unit) {
                         coroutineScope.launch {
-                            items = commentsApi.getComments()
+                            when (val apiResult = commentsApi.getComments()) {
+                                is ApiResponse.Success -> {
+                                    items = apiResult.body
+                                }
+                                is ApiResponse.Error.HttpError,
+                                ApiResponse.Error.NetworkError,
+                                ApiResponse.Error.SerializationError -> {
+                                    // Error happens
+                                }
+                            }
                             settingsStorage.lastStartTimestamp =
                                 System.currentTimeMillis()
                         }

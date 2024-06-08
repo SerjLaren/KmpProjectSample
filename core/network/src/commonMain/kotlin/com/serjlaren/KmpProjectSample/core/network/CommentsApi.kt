@@ -1,15 +1,13 @@
 package com.serjlaren.KmpProjectSample.core.network
 
+import com.serjlaren.KmpProjectSample.core.network.common.DefaultHttpClient
+import com.serjlaren.KmpProjectSample.core.network.common.MyApiResponse
+import com.serjlaren.KmpProjectSample.core.network.common.safeRequest
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.DEFAULT
-import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logger
-import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
+import io.ktor.client.request.url
 import io.ktor.client.statement.bodyAsText
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.http.HttpMethod
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.InternalSerializationApi
@@ -19,33 +17,31 @@ import kotlin.reflect.KClass
 
 class CommentsApi {
 
-    private val json = Json {
-        ignoreUnknownKeys = true
-        useAlternativeNames = false
-        prettyPrint = true
-        isLenient = true
-    }
+    private val httpClient: HttpClient = DefaultHttpClient.client
 
-    private val httpClient = HttpClient {
-        install(ContentNegotiation) {
-            json(json)
-            install(Logging) {
-                logger = Logger.DEFAULT
-                level = LogLevel.ALL
-            }
+    suspend fun getComments(): MyApiResponse<List<CommentDto>> {
+        return httpClient.safeRequest<List<CommentDto>> {
+            method = HttpMethod.Get
+            url("comments")
+            url.parameters.append("token", "abc123") // TODO query params just for example
+            build()
         }
     }
 
-    suspend fun getComments(): List<CommentDto> {
-        return httpClient.get("https://jsonplaceholder.org/comments").body()
-    }
-
-    fun observeComments(): Flow<List<CommentDto>> {
+    fun observeComments(): Flow<MyApiResponse<List<CommentDto>>> {
         return flow {
-            emit(httpClient.get("https://jsonplaceholder.org/comments").body())
+            emit(
+                httpClient.safeRequest<List<CommentDto>> {
+                    method = HttpMethod.Get
+                    url("comments")
+                    url.parameters.append("token", "abc123") // TODO query params just for example
+                    build()
+                }
+            )
         }
     }
 
+    // TODO This function is just for test, in future need to delete it
     @OptIn(InternalSerializationApi::class)
     suspend fun <T : Any> getCustom(
         url: String,
@@ -60,6 +56,12 @@ class CommentsApi {
             }
         }
 
-        return json.decodeFromString(responseClass.serializer(), response.bodyAsText())
+        @Suppress("JSON_FORMAT_REDUNDANT")
+        return Json {
+            ignoreUnknownKeys = true
+            useAlternativeNames = false
+            prettyPrint = true
+            isLenient = true
+        }.decodeFromString(responseClass.serializer(), response.bodyAsText())
     }
 }
