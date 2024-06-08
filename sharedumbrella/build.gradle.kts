@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -12,20 +14,25 @@ kotlin {
         }
     }
     
+    val xcf = XCFramework()
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "shared"
+            baseName = "sharedumbrella"
+            export(project(":core:network"))
+            export(project(":core:storage"))
+            xcf.add(this)
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":sharedumbrella"))
+            api(project(":core:network"))
+            api(project(":core:storage"))
         }
     }
 
@@ -33,7 +40,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.serjlaren.kmpprojectsample"
+    namespace = "com.serjlaren.sharedumbrella"
     compileSdk = libs.versions.compileAndroidSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minAndroidSdk.get().toInt()

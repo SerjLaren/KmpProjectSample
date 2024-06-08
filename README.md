@@ -13,5 +13,6 @@
 ## Structure:
 - **androidApp**, **iosApp**: default KMP-project Android and iOS apps
 - **core:network**: core module for network calls
-- **core:storage**: core module for store key-value settings
-- **shared**: default KMP module that provides **core:network** and **core:storage** classes to Android and iOS apps ([Umbrella](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-project-configuration.html#several-shared-modules))
+- **core:storage**: core module for store key-value settings (maybe also DB in future)
+- **sharedumbrella**: KMP module that provides **core:network** and **core:storage** classes to Android (in shared module) and iOS (as XCFramework) apps ([Umbrella](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-project-configuration.html#several-shared-modules))
+- **shared**: default KMP module that provides **sharedumbrella** and **other future modules and logic** classes to Android app (iOS native app uses only umbrella module as XCFramework)
