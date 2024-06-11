@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 class UserPostRequestBody(
     @SerialName("userId")
-    val userId: Int,
+    val userId: Long,
     @SerialName("title")
     val title: String,
     @SerialName("body")

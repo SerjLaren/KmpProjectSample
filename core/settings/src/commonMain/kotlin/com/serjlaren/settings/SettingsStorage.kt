@@ -1,4 +1,4 @@
-package com.serjlaren.core.storage
+package com.serjlaren.settings
 
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.long

@@ -22,6 +22,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "sharedumbrella"
+            export(project(":core:settings"))
             export(project(":core:network"))
             export(project(":core:storage"))
             xcf.add(this)
@@ -31,6 +32,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(project(":core:settings"))
             api(project(":core:network"))
             api(project(":core:storage"))
         }

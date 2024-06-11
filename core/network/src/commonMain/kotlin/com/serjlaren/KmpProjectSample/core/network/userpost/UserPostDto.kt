@@ -4,11 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class UserPostResponseDto(
+class UserPostDto(
     @SerialName("id")
-    val id: Int,
+    val id: Long,
     @SerialName("userId")
-    val userId: Int,
+    val userId: Long,
     @SerialName("title")
     val title: String,
     @SerialName("body")

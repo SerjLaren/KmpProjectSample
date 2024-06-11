@@ -29,18 +29,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.serjlaren.KmpProjectSample.core.network.common.ApiResponse
-import com.serjlaren.KmpProjectSample.core.network.userpost.UserPostApi
-import com.serjlaren.KmpProjectSample.core.network.userpost.UserPostRequestBody
-import com.serjlaren.KmpProjectSample.core.network.userpost.UserPostResponseDto
-import com.serjlaren.core.storage.SettingsStorage
+import com.serjlaren.core.storage.initDatabase
+import com.serjlaren.settings.SettingsStorage
+import com.serjlaren.sharedumbrella.common.RemoteResult
+import com.serjlaren.sharedumbrella.userpost.UserPost
+import com.serjlaren.sharedumbrella.userpost.UserPostRepository
 import kotlinx.coroutines.launch
+
+// Yes, code here is not beauty, but its just for testing of shared logic
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val postsApi = UserPostApi()
+        initDatabase(this)
+        val userPostRepository = UserPostRepository()
         val settingsStorage = SettingsStorage()
 
         setContent {
@@ -51,21 +54,29 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val coroutineScope = rememberCoroutineScope()
                     val ctx = LocalContext.current
-                    var items: List<UserPostResponseDto> by remember { mutableStateOf(listOf()) }
+                    var items: List<UserPost> by remember { mutableStateOf(listOf()) }
 
                     LaunchedEffect(key1 = Unit) {
                         coroutineScope.launch {
-                            when (val apiResult = postsApi.getPosts()) {
-                                is ApiResponse.Success -> {
-                                    items = apiResult.body
-                                }
+                            val localPosts = userPostRepository.getUserPostsLocal()
+                            if (localPosts.isEmpty()) {
+                                when (val remoteResult = userPostRepository.getUserPostsRemote()) {
+                                    is RemoteResult.Success -> {
+                                        userPostRepository.saveUserPostsLocal(remoteResult.data)
+                                        items = remoteResult.data
+                                    }
 
-                                is ApiResponse.Error.HttpError,
-                                ApiResponse.Error.NetworkError,
-                                ApiResponse.Error.SerializationError -> {
-                                    // Error happens
+                                    RemoteResult.Error.NetworkError,
+                                    RemoteResult.Error.SerializationError,
+                                    is RemoteResult.Error.ServerError -> {
+                                        Toast.makeText(ctx, "Error happens", Toast.LENGTH_SHORT)
+                                            .show()
+                                    }
                                 }
+                            } else {
+                                items = localPosts
                             }
+
                             settingsStorage.lastStartTimestamp =
                                 System.currentTimeMillis()
                         }
@@ -87,21 +98,31 @@ class MainActivity : ComponentActivity() {
                                 .background(color = Color.Red)
                                 .clickable(onClick = {
                                     coroutineScope.launch {
-                                        when (postsApi.postPost(
-                                            UserPostRequestBody(
-                                                userId = 1,
-                                                title = "Test title",
-                                                body = "Test body",
+                                        when (userPostRepository.sendUserPostRemote(
+                                            UserPost(
+                                                1, 1, "Test title", "Test body"
                                             )
                                         )) {
-                                            is ApiResponse.Success -> {
-                                                Toast.makeText(ctx, "Post added successfully!", Toast.LENGTH_SHORT).show()
+                                            is RemoteResult.Success -> {
+                                                Toast
+                                                    .makeText(
+                                                        ctx,
+                                                        "Post added successfully!",
+                                                        Toast.LENGTH_SHORT
+                                                    )
+                                                    .show()
                                             }
 
-                                            is ApiResponse.Error.HttpError,
-                                            ApiResponse.Error.NetworkError,
-                                            ApiResponse.Error.SerializationError -> {
-                                                // Error happens
+                                            RemoteResult.Error.NetworkError,
+                                            RemoteResult.Error.SerializationError,
+                                            is RemoteResult.Error.ServerError -> {
+                                                Toast
+                                                    .makeText(
+                                                        ctx,
+                                                        "Error happens",
+                                                        Toast.LENGTH_SHORT
+                                                    )
+                                                    .show()
                                             }
                                         }
                                     }
@@ -121,7 +142,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun CommentView(userPost: UserPostResponseDto) {
+private fun CommentView(userPost: UserPost) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text("User: ${userPost.userId} - ${userPost.title}")
         Spacer(modifier = Modifier.height(12.dp))

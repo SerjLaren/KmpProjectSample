@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -19,34 +18,22 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "storage"
+            baseName = "settings"
             isStatic = true
         }
     }
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.sqldelight.android)
-        }
-
-        iosMain.dependencies {
-            implementation(libs.sqldelight.native)
+        commonMain.dependencies {
+            implementation(libs.multiplatformsettings)
         }
     }
 
     task("testClasses")
 }
 
-sqldelight {
-    databases {
-        create("Database") {
-            packageName.set("com.serjlaren.core.storage")
-        }
-    }
-}
-
 android {
-    namespace = "com.serjlaren.core.storage"
+    namespace = "com.serjlaren.settings"
     compileSdk = libs.versions.compileAndroidSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minAndroidSdk.get().toInt()
