@@ -8,13 +8,15 @@
 - [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html) - multiplatform technology
 - [Ktor](https://ktor.io/) - for network
 - [Multiplatform-Settings](https://github.com/russhwolf/multiplatform-settings) - to store key-value settings
+- [SqlDelight](https://github.com/cashapp/sqldelight) - for database
 - [JsonPlaceholder](https://jsonplaceholder.typicode.com) - as backend api
 
 ## Structure:
 - `androidApp`, `iosApp`: default KMP-project Android and iOS apps
 - `core:network`: core module for network calls
-- `core:storage`: core module for store key-value settings (maybe also DB in future)
-- `sharedumbrella`: KMP module that provides `core:network` and `core:storage` classes to Android (in `shared` module) and iOS (as XCFramework) apps ([Umbrella](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-project-configuration.html#several-shared-modules))
+- `core:storage`: core module with database
+- `core:settings`: core module for store key-value settings
+- `sharedumbrella`: KMP module that connects `core:*` modules with `shared` module (for Android) and XCFramework (for iOS) ([Umbrella](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-project-configuration.html#several-shared-modules))
 - `shared`: default KMP module that provides `sharedumbrella` and `other future modules and logic` to Android app (iOS native app uses only `sharedumbrella` module as XCFramework)
 
 ## Build Android App:
@@ -29,3 +31,6 @@ Just run "androidApp" configuration as usual in Android Studio (or other IDE) ðŸ
 - You are amazing! Just "import sharedumbrella" anywhere and enjoy! ðŸ˜‡
 
 (note that this steps are creates external-path dependency (built XCFramework is outside of iosApp folder). You can copy generated XCFramework to iOS project folder if you want)
+
+## Project structure:
+![picture](project_structure.png)

@@ -1,34 +1,8 @@
-package com.serjlaren.sharedumbrella.common
+package com.serjlaren.sharedumbrella.userpost
 
-import com.serjlaren.KmpProjectSample.core.network.common.ApiErrorBody
-import com.serjlaren.KmpProjectSample.core.network.common.ApiResponse
 import com.serjlaren.KmpProjectSample.core.network.userpost.UserPostDto
 import com.serjlaren.KmpProjectSample.core.network.userpost.UserPostRequestBody
-import com.serjlaren.sharedumbrella.userpost.UserPost
 import data.UserPostDbo
-
-internal fun <T, E> ApiResponse<T, ApiErrorBody>.toRemoteResult(mapBlock: T.() -> E): RemoteResult<E> {
-    return when (this) {
-        is ApiResponse.Success -> {
-            RemoteResult.Success(this.body.mapBlock())
-        }
-        is ApiResponse.Error.HttpError -> {
-            RemoteResult.Error.ServerError(
-                RemoteError(
-                    httpCode = this.code,
-                    serverCode = this.errorBody?.code,
-                    message = this.errorBody?.message.orEmpty(),
-                )
-            )
-        }
-        ApiResponse.Error.NetworkError -> {
-            RemoteResult.Error.NetworkError
-        }
-        ApiResponse.Error.SerializationError -> {
-            RemoteResult.Error.SerializationError
-        }
-    }
-}
 
 internal fun UserPostDto.toUserPost(): UserPost {
     return UserPost(

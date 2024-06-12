@@ -1,6 +1,6 @@
 package com.serjlaren.KmpProjectSample.core.network.common
 
-typealias MyApiResponse<T> = ApiResponse<T, ApiErrorBody>
+internal typealias MyApiResponse<T> = ApiResponse<T, ApiErrorBody>
 
 sealed class ApiResponse<out T, out E> {
 

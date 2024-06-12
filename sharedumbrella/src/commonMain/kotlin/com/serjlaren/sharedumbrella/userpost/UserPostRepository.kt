@@ -3,10 +3,7 @@ package com.serjlaren.sharedumbrella.userpost
 import com.serjlaren.KmpProjectSample.core.network.userpost.UserPostApi
 import com.serjlaren.core.storage.dao.UserPostDao
 import com.serjlaren.sharedumbrella.common.RemoteResult
-import com.serjlaren.sharedumbrella.common.toDbo
 import com.serjlaren.sharedumbrella.common.toRemoteResult
-import com.serjlaren.sharedumbrella.common.toPostBody
-import com.serjlaren.sharedumbrella.common.toUserPost
 
 // WARNING! Create this class as singleton to prevent multiple transactions, etc...
 class UserPostRepository {

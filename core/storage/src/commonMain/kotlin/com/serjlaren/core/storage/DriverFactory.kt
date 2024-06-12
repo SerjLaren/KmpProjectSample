@@ -5,7 +5,7 @@ package com.serjlaren.core.storage
 import app.cash.sqldelight.db.SqlDriver
 
 internal expect class DriverFactory {
-    fun createDriver(): SqlDriver
+    internal fun createDriver(): SqlDriver
 }
 
 internal expect fun createDriverFactory(): DriverFactory

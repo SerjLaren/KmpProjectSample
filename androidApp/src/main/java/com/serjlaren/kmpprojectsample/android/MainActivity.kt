@@ -37,6 +37,7 @@ import com.serjlaren.sharedumbrella.userpost.UserPostRepository
 import kotlinx.coroutines.launch
 
 // Yes, code here is not beauty, but its just for testing of shared logic
+// Will be better later (after integration of ViewModel)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

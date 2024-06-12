@@ -75,14 +75,14 @@ private suspend fun Exception.toApiError(): ApiResponse.Error<out ApiErrorBody> 
         is ClientRequestException -> {
             ApiResponse.Error.HttpError(
                 this.response.status.value,
-                this.errorBody()
+                this.getErrorBody()
             )
         }
 
         is ServerResponseException -> {
             ApiResponse.Error.HttpError(
                 this.response.status.value,
-                this.errorBody()
+                this.getErrorBody()
             )
         }
 
@@ -96,7 +96,7 @@ private suspend fun Exception.toApiError(): ApiResponse.Error<out ApiErrorBody> 
     }
 }
 
-private suspend fun ResponseException.errorBody(): ApiErrorBody? =
+private suspend fun ResponseException.getErrorBody(): ApiErrorBody? =
     try {
         response.body<ApiErrorBody>()
     } catch (e: SerializationException) {
