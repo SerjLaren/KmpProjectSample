@@ -29,8 +29,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.serjlaren.core.storage.initDatabase
 import com.serjlaren.settings.SettingsStorage
+import com.serjlaren.sharedumbrella.SharedUmbrellaData
 import com.serjlaren.sharedumbrella.common.RemoteResult
 import com.serjlaren.sharedumbrella.userpost.UserPost
 import com.serjlaren.sharedumbrella.userpost.UserPostRepository
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initDatabase(this)
+        SharedUmbrellaData.initialize(this)
         val userPostRepository = UserPostRepository()
         val settingsStorage = SettingsStorage()
 

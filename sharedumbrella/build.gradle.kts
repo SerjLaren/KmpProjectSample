@@ -33,8 +33,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(project(":core:settings"))
-            api(project(":core:network"))
-            api(project(":core:storage"))
+            implementation(project(":core:network"))
+            implementation(project(":core:storage"))
         }
     }
 
