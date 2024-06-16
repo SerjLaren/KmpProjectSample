@@ -23,8 +23,7 @@ kotlin {
         it.binaries.framework {
             baseName = "sharedumbrella"
             export(project(":core:settings"))
-            export(project(":core:network"))
-            export(project(":core:storage"))
+            export(project(":core:memorycache"))
             xcf.add(this)
             isStatic = true
         }

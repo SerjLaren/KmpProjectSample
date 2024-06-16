@@ -20,7 +20,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "storage"
-            isStatic = true
+            isStatic = false
         }
     }
 

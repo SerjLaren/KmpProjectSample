@@ -1,7 +1,6 @@
 package com.serjlaren.KmpProjectSample.core.network.common
 
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -19,7 +18,7 @@ internal object ApiHttpClient {
 
     internal const val BASE_URL = "jsonplaceholder.typicode.com"
 
-    internal val client = HttpClient(CIO) {
+    internal val client = HttpClient {
         install(Logging) {
             logger = Logger.SIMPLE
             level = LogLevel.ALL
