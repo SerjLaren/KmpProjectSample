@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -14,28 +12,20 @@ kotlin {
         }
     }
     
-    val xcf = XCFramework()
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "sharedumbrella"
-            export(project(":core:settings"))
-            export(project(":core:network"))
-            export(project(":core:storage"))
-            xcf.add(this)
+            baseName = "memorycache"
             isStatic = true
         }
     }
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":core:settings"))
-            api(project(":core:memorycache"))
-            implementation(project(":core:network"))
-            implementation(project(":core:storage"))
+            implementation(libs.stately.concurrency)
         }
     }
 
@@ -43,7 +33,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.serjlaren.sharedumbrella"
+    namespace = "com.serjlaren.memorycache"
     compileSdk = libs.versions.compileAndroidSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minAndroidSdk.get().toInt()

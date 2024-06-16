@@ -15,7 +15,8 @@
 - `androidApp`, `iosApp`: default KMP-project Android and iOS apps
 - `core:network`: core module for network calls
 - `core:storage`: core module with database
-- `core:settings`: core module for store key-value settings
+- `core:settings`: core module for store key-value settings (like SharedPreferences/UserDefaults)
+- `core:memorycache`: core module for store key-value data in app-single MemoryCache (in RAM)
 - `sharedumbrella`: KMP module that connects `core:*` modules with `shared` module (for Android) and XCFramework (for iOS) ([Umbrella](https://www.jetbrains.com/help/kotlin-multiplatform-dev/multiplatform-project-configuration.html#several-shared-modules))
 - `shared`: default KMP module that provides `sharedumbrella` and `other future modules and logic` to Android app (iOS native app uses only `sharedumbrella` module as XCFramework)
 

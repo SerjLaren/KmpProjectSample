@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.serjlaren.memorycache.MemoryCache
 import com.serjlaren.settings.SettingsStorage
 import com.serjlaren.sharedumbrella.SharedUmbrellaData
 import com.serjlaren.sharedumbrella.common.RemoteResult
@@ -56,6 +57,13 @@ class MainActivity : ComponentActivity() {
                     val coroutineScope = rememberCoroutineScope()
                     val ctx = LocalContext.current
                     var items: List<UserPost> by remember { mutableStateOf(listOf()) }
+
+                    val mc = MemoryCache()
+                    mc.put("qwe", UserPost(0, 0, "1", "2"))
+                    val aaa = mc.get<UserPost>("qwe")
+
+                    mc.put("qweqwe", 123)
+                    val bbb = mc.get<Int>("qweqwe")
 
                     LaunchedEffect(key1 = Unit) {
                         coroutineScope.launch {
