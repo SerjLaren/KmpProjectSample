@@ -60,10 +60,10 @@ class MainActivity : ComponentActivity() {
 
                     val mc = MemoryCache()
                     mc.put("qwe", UserPost(0, 0, "1", "2"))
-                    val aaa = mc.get<UserPost>("qwe")
+                    val aaa = mc.getTyped<UserPost>("qwe")
 
                     mc.put("qweqwe", 123)
-                    val bbb = mc.get<Int>("qweqwe")
+                    val bbb = mc.getTyped<Int>("qweqwe")
 
                     LaunchedEffect(key1 = Unit) {
                         coroutineScope.launch {

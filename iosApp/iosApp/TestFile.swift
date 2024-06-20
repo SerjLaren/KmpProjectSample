@@ -9,6 +9,12 @@
 import Foundation
 import sharedumbrella
 
+struct SomeTestData {
+    let a: Int64
+    let b: String
+    let c: Float
+}
+
 class TestFile {
     
     init() {
@@ -16,6 +22,10 @@ class TestFile {
     }
     
     func testFunc() {
+        let memoryCache = MemoryCache()
+        memoryCache.put(key: "qwe", data: SomeTestData(a: 123, b: "345", c: 446.99))
+        let getFromCache = memoryCache.get(key: "qwe") as! SomeTestData
+        let asdasd = getFromCache.a + 100
 //        let repo = UserPostRepository()
 //        repo.getUserPostsRemote { result, error in
 //            if result is RemoteResultSuccess {

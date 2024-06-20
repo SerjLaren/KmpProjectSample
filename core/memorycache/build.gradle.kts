@@ -24,6 +24,9 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlin.experimental.ExperimentalObjCRefinement")
+        }
         commonMain.dependencies {
             implementation(libs.stately.concurrency)
         }

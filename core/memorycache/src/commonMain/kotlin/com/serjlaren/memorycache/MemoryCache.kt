@@ -2,6 +2,11 @@ package com.serjlaren.memorycache
 
 import co.touchlab.stately.concurrency.Synchronizable
 import co.touchlab.stately.concurrency.synchronize
+import kotlin.native.HiddenFromObjC
+
+// On Swift side types of 'get' functions will be "Any?" because (link below)
+// (https://github.com/kotlin-hands-on/kotlin-swift-interopedia/blob/main/docs/generics/Generic%20functions.md)
+// OnSwift side you need cast "Any?" with "as! YourType"
 
 // Declare this class as Singleton in your App's di/sl. Then inject anywhere and get/put in-memory stored values by keys.
 class MemoryCache : Synchronizable() {
@@ -16,22 +21,14 @@ class MemoryCache : Synchronizable() {
         return synchronize { memoryMap.contains(key) }
     }
 
-    fun getAnyOrNull(key: String): Any? {
+    fun get(key: String): Any? {
         return synchronize { memoryMap[key] }
     }
 
-    fun getAny(key: String): Any {
-        return synchronize { requireNotNull(memoryMap[key]) { "Value for key $key was null in MemoryCache" } }
-    }
-
+    @HiddenFromObjC
     @Suppress("UNCHECKED_CAST")
-    fun <T> getOrNull(key: String): T {
+    fun <T: Any?> getTyped(key: String): T {
         return synchronize { memoryMap[key] as T }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    fun <T> get(key: String): T {
-        return synchronize { requireNotNull(memoryMap[key] as T) { "Value for key $key was null in MemoryCache" } }
     }
 
     fun remove(key: String) {

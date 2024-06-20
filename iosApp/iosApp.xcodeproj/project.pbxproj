@@ -13,18 +13,18 @@
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		8B9794762C1EE58800FA1C89 /* TestFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9794752C1EE58800FA1C89 /* TestFile.swift */; };
 		8B9794802C1EF9D700FA1C89 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B97947F2C1EF9D700FA1C89 /* libsqlite3.tbd */; };
-		8B9794862C1F058E00FA1C89 /* sharedumbrella.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9794852C1F058E00FA1C89 /* sharedumbrella.xcframework */; };
-		8B9794872C1F058E00FA1C89 /* sharedumbrella.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9794852C1F058E00FA1C89 /* sharedumbrella.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8BBF2F122C24849A00B993AA /* sharedumbrella.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBF2F112C24849A00B993AA /* sharedumbrella.xcframework */; };
+		8BBF2F132C24849A00B993AA /* sharedumbrella.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBF2F112C24849A00B993AA /* sharedumbrella.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8B9794882C1F058E00FA1C89 /* Embed Frameworks */ = {
+		8BBF2F142C24849A00B993AA /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8B9794872C1F058E00FA1C89 /* sharedumbrella.xcframework in Embed Frameworks */,
+				8BBF2F132C24849A00B993AA /* sharedumbrella.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,7 +40,7 @@
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B9794752C1EE58800FA1C89 /* TestFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFile.swift; sourceTree = "<group>"; };
 		8B97947F2C1EF9D700FA1C89 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		8B9794852C1F058E00FA1C89 /* sharedumbrella.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = sharedumbrella.xcframework; path = ../sharedumbrella/build/XCFrameworks/release/sharedumbrella.xcframework; sourceTree = "<group>"; };
+		8BBF2F112C24849A00B993AA /* sharedumbrella.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = sharedumbrella.xcframework; path = ../sharedumbrella/build/XCFrameworks/release/sharedumbrella.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B9794862C1F058E00FA1C89 /* sharedumbrella.xcframework in Frameworks */,
+				8BBF2F122C24849A00B993AA /* sharedumbrella.xcframework in Frameworks */,
 				8B9794802C1EF9D700FA1C89 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,7 +97,7 @@
 		7555FFB0242A642200829871 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8B9794852C1F058E00FA1C89 /* sharedumbrella.xcframework */,
+				8BBF2F112C24849A00B993AA /* sharedumbrella.xcframework */,
 				8B97947F2C1EF9D700FA1C89 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -113,7 +113,7 @@
 				7555FF77242A565900829871 /* Sources */,
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
-				8B9794882C1F058E00FA1C89 /* Embed Frameworks */,
+				8BBF2F142C24849A00B993AA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
