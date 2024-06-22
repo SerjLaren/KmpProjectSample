@@ -2,9 +2,10 @@
 
 package com.serjlaren.KmpProjectSample.core.network.common
 
+import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.Settings
+import platform.Foundation.NSUserDefaults
 
 internal actual class NetworkSettings {
-    internal actual val encryptedSettings: Settings
-        get() = TODO("Not yet implemented")
+    internal actual val encryptedSettings: Settings = NSUserDefaultsSettings(NSUserDefaults())
 }
