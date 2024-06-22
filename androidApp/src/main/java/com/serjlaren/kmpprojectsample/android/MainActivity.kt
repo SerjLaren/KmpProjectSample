@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.serjlaren.memorycache.MemoryCache
-import com.serjlaren.settings.SettingsStorage
+//import com.serjlaren.settings.SettingsStorage
 import com.serjlaren.sharedumbrella.SharedUmbrellaData
 import com.serjlaren.sharedumbrella.common.RemoteResult
 import com.serjlaren.sharedumbrella.userpost.UserPost
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
         SharedUmbrellaData.initialize(this)
         val userPostRepository = UserPostRepository()
-        val settingsStorage = SettingsStorage()
+//        val settingsStorage = SettingsStorage()
 
         setContent {
             MyApplicationTheme {
@@ -86,14 +86,15 @@ class MainActivity : ComponentActivity() {
                                 items = localPosts
                             }
 
-                            settingsStorage.lastStartTimestamp =
-                                System.currentTimeMillis()
+//                            settingsStorage.lastStartTimestamp =
+//                                System.currentTimeMillis()
                         }
                     }
 
                     Column {
                         Text(
-                            text = "Last start timestamp: ${settingsStorage.lastStartTimestamp}",
+                            text = "qweqwe",
+//                            text = "Last start timestamp: ${settingsStorage.lastStartTimestamp}",
                             modifier = Modifier.background(color = Color.Blue)
                         )
                         Text(

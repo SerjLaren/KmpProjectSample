@@ -2,6 +2,8 @@ package com.serjlaren.KmpProjectSample.core.network.common
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
@@ -36,6 +38,11 @@ internal object ApiHttpClient {
             connectTimeoutMillis = 10000L
             socketTimeoutMillis = 10000L
         }
+//        install(Auth) {
+//            bearer {
+//
+//            }
+//        }
         defaultRequest {
             url {
                 protocol = URLProtocol.HTTPS

@@ -28,14 +28,17 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.auth)
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.negotiation)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.multiplatformsettings)
         }
 
         androidMain.dependencies {
             implementation(libs.ktor.client.android)
+            implementation(libs.androidx.security.crypto)
         }
 
         iosMain.dependencies {
